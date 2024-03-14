@@ -1,0 +1,34 @@
+name: medigard
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  firebase_core: ^2.25.4
+  firebase_auth: ^4.17.4
+  cloud_firestore: ^4.15.4
+  file_picker: ^6.1.1
+  open_file: ^3.3.2
+  slide_to_act: ^2.0.2
+  curved_navigation_bar: ^1.0.3
+  swipe_cards: ^2.0.0+1
+  http: ^1.2.0
+  geolocator: ^11.0.0
+  geocoding: ^2.1.1
+  lottie: ^3.0.0
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/animations/

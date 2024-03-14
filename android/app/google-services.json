@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "691806673031",
+    "project_id": "medigarden-da20f",
+    "storage_bucket": "medigarden-da20f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691806673031:android:5939d8c0a881a17db60022",
+        "android_client_info": {
+          "package_name": "com.example.medigard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO1z7ysAW8apmxuEscdQLiPnPOqGjiLEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
