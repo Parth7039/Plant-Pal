@@ -36,26 +36,18 @@ class _HomePageState extends State<HomePage> {
     ];
 
     final List<Map<String, String>> images = [
-      {"image": "assets/images/gardena.jpg", "title": "Flutter Baba"},
-      {"image": "assets/images/gardenb.jpg", "title": "Flutter Baba"},
-      {"image": "assets/images/nature1.jpg", "title": "Flutter Baba"},
-      {"image": "assets/images/nature2.jpg", "title": "Flutter Baba"},
+      {"image": "assets/images/Ajwain.jpg", "title": "Ajwain"},
+      {"image": "assets/images/Aloe.webp", "title": "Aloe Vera"},
+      {"image": "assets/images/fenugreek.jpg", "title": "Fenugreek"},
+      {"image": "assets/images/neem.jpg", "title": "Neem"},
+      {"image": "assets/images/tulsi.jpg", "title": "Tulsi"},
+      {"image": "assets/images/turmeric.webp", "title": "Turmeric"},
+      {"image": "assets/images/Manjistha.webp", "title": "Manjistha"},
+      {"image": "assets/images/saffron.jpg", "title": "Saffron"},
+      {"image": "assets/images/sandalwood.jpg", "title": "Sandalwood"},
     ];
 
-    final screens = [
-      SearchPage(),
-      HomePage(),
-      ProfilePage(),
-    ];
     return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        key: navigationKey,
-        backgroundColor: Colors.transparent,
-        height: 60,
-        index: index,
-        items: items,
-        onTap: (index) => setState(() => this.index = index),
-      ),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
@@ -65,6 +57,15 @@ class _HomePageState extends State<HomePage> {
               onPressed: (){signUserOut(context);},
               icon: Icon(Icons.logout,color: Colors.white,)),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => SearchPage()),
+          );
+        },
+        child: Icon(Icons.search),
       ),
       drawer: Drawer(
         child: ListView(
@@ -88,151 +89,166 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: (
         Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Container(
-                  width: double.maxFinite,
-                  height: 200,
-                  padding: const EdgeInsets.all(10),
-                  child: CustomCarousel(
-                    visible: 3,
-                    borderRadius: 20,
-                    slideAnimationDuration: 500,
-                    titleFadeAnimationDuration: 300,
-                    childClick: (int index) {
-                      print("Clicked $index");
-                    },
-                    children: images,
+          child: Column(
+            children: [
+              Container(
+                width: double.maxFinite,
+                height: 200,
+                padding: const EdgeInsets.all(10),
+                child: CustomCarousel(
+                  visible: 3,
+                  borderRadius: 20,
+                  slideAnimationDuration: 500,
+                  titleFadeAnimationDuration: 300,
+                  childClick: (int index) {
+                    print("Clicked $index");
+                  },
+                  children: images,
+                ),
+              ),
+              SizedBox(height: 10,),
+              Stack(
+                children: [
+                  Container(
+                    height: 569,
+                    width: 450,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
+                      color: Colors.orange,
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => WeatherPage()),
-                        );
-                      },
-                      child: Container(
-                        height: 170,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.blue.shade900, width: 5),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 5),
-                            Image.asset('assets/images/weather-news.png', height: 100, width: 100),
-                            SizedBox(height: 20),
-                            Text(
-                              'Weather',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                  Column(
+                    children: [
+                      SizedBox(height: 30,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => WeatherPage()),
+                              );
+                            },
+                            child: Container(
+                              height: 170,
+                              width: 170,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/images/weather-news.png', height: 100, width: 100),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'Weather',
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => NewsPage()),
+                              );
+                            },
+                            child: Container(
+                              height: 170,
+                              width: 170,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/images/news.png', height: 120, width: 110),
+                                  Text(
+                                    'News & Updates',
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(width: 15,),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => NewsPage()),
-                        );
-                      },
-                      child: Container(
-                        height: 170,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.blue.shade900, width: 5),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 5),
-                            Image.asset('assets/images/news.png', height: 120, width: 110),
-                            Text(
-                              'News & Updates',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                      SizedBox(height: 30,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => WeatherPage()),
+                              );
+                            },
+                            child: Container(
+                              height: 170,
+                              width: 170,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/images/shop.png', height: 100, width: 100),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'Buy Plants!!',
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 15,),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => TaskSchedulePage()),
+                              );
+                            },
+                            child: Container(
+                              height: 170,
+                              width: 170,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                              ),
+                              child: Column(
+                                children: [
+                                  SizedBox(height: 5),
+                                  Image.asset('assets/images/task.png', height: 100, width: 100),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'Tasks',
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => WeatherPage()),
-                        );
-                      },
-                      child: Container(
-                        height: 170,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.blue.shade900, width: 5),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 5),
-                            Image.asset('assets/images/shop.png', height: 100, width: 100),
-                            SizedBox(height: 20),
-                            Text(
-                              'Buy Plants!!',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 15,),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => TaskSchedulePage()),
-                        );
-                      },
-                      child: Container(
-                        height: 170,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.blue.shade900, width: 5),
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(height: 5),
-                            Image.asset('assets/images/task.png', height: 100, width: 100),
-                            SizedBox(height: 20),
-                            Text(
-                              'Tasks',
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+                    ],
+                  )
+                ],
+              )
+            ],
           ),
         )
         ),

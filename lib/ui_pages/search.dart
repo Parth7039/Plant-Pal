@@ -104,7 +104,17 @@ class _PlantSearchPageState extends State<PlantSearchPage> {
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
+                  borderRadius: BorderRadius.circular(20)
+                ),
                 labelText: 'Search Plants',
+                labelStyle: TextStyle(color: Colors.black),
+                hintText: 'Search Plants here!!',
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {
