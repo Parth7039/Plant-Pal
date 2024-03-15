@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
@@ -59,13 +60,14 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
         onPressed: () {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => SearchPage()),
           );
         },
-        child: Icon(Icons.search),
+        child: Icon(Icons.search,color: Colors.white,),
       ),
       drawer: Drawer(
         child: ListView(
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                     width: 450,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
-                      color: Colors.orange,
+                      color: Colors.white,
                     ),
                   ),
                   Column(
@@ -134,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.grey.shade500,
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(color: Colors.blue.shade900, width: 5),
                               ),
@@ -145,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(height: 20),
                                   Text(
                                     'Weather',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
                                   )
                                 ],
                               ),
@@ -163,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.grey.shade500,
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(color: Colors.blue.shade900, width: 5),
                               ),
@@ -173,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                                   Image.asset('assets/images/news.png', height: 120, width: 110),
                                   Text(
                                     'News & Updates',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
                                   )
                                 ],
                               ),
@@ -196,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.grey.shade500,
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(color: Colors.blue.shade900, width: 5),
                               ),
@@ -207,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(height: 20),
                                   Text(
                                     'Buy Plants!!',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
                                   )
                                 ],
                               ),
@@ -225,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Colors.grey.shade500,
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(color: Colors.blue.shade900, width: 5),
                               ),
@@ -236,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                                   SizedBox(height: 20),
                                   Text(
                                     'Tasks',
-                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
                                   )
                                 ],
                               ),
