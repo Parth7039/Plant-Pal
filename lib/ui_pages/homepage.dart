@@ -2,14 +2,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medigard/ui_pages/collab.dart';
-import 'package:medigard/ui_pages/garden.dart';
 import 'package:medigard/ui_pages/news.dart';
 import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/search.dart';
 import 'package:medigard/ui_pages/task.dart';
 import 'package:medigard/ui_pages/weather.dart';
 import '../Auth_pages/loginpage.dart';
+import 'custom_carousel.dart';
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
@@ -34,6 +33,13 @@ class _HomePageState extends State<HomePage> {
       Icon(Icons.search, size: 30,),
       Icon(Icons.home,size: 30,),
       Icon(Icons.person_pin,size: 30,),
+    ];
+
+    final List<Map<String, String>> images = [
+      {"image": "assets/images/gardena.jpg", "title": "Flutter Baba"},
+      {"image": "assets/images/gardenb.jpg", "title": "Flutter Baba"},
+      {"image": "assets/images/nature1.jpg", "title": "Flutter Baba"},
+      {"image": "assets/images/nature2.jpg", "title": "Flutter Baba"},
     ];
 
     final screens = [
@@ -86,6 +92,21 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                Container(
+                  width: double.maxFinite,
+                  height: 200,
+                  padding: const EdgeInsets.all(10),
+                  child: CustomCarousel(
+                    visible: 3,
+                    borderRadius: 20,
+                    slideAnimationDuration: 500,
+                    titleFadeAnimationDuration: 300,
+                    childClick: (int index) {
+                      print("Clicked $index");
+                    },
+                    children: images,
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
