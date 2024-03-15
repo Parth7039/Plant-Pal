@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:medigard/ui_pages/weather.dart';
-
 import 'homepage.dart';
-import 'news.dart';
 
 class Plant {
   final String name;

@@ -4,8 +4,6 @@ import 'package:medigard/ui_pages/homepage.dart';
 import 'package:medigard/weather_model.dart';
 import 'package:medigard/weather_services.dart';
 
-import 'news.dart';
-
 class WeatherPage extends StatefulWidget {
   const WeatherPage({Key? key}) : super(key: key);
 

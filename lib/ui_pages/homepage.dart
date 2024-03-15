@@ -2,13 +2,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medigard/ui_pages/news.dart';
 import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/search.dart';
 import 'package:medigard/ui_pages/task.dart';
 import 'package:medigard/ui_pages/weather.dart';
 import '../Auth_pages/loginpage.dart';
 import 'custom_carousel.dart';
+import 'garden.dart';
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                     width: 450,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(topRight: Radius.circular(20),topLeft: Radius.circular(20)),
-                      color: Colors.white,
+                      color: Colors.red.shade400,
                     ),
                   ),
                   Column(
@@ -136,9 +136,9 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade500,
+                                color: Colors.grey.shade900,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                                border: Border.all(color: Colors.black, width: 5),
                               ),
                               child: Column(
                                 children: [
@@ -158,23 +158,23 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => NewsPage()),
+                                MaterialPageRoute(builder: (context) => create_GardenPage()),
                               );
                             },
                             child: Container(
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade500,
+                                color: Colors.grey.shade900,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                                border: Border.all(color: Colors.black, width: 5),
                               ),
                               child: Column(
                                 children: [
                                   SizedBox(height: 5),
-                                  Image.asset('assets/images/news.png', height: 120, width: 110),
+                                  Image.asset('assets/images/garden.png', height: 120, width: 110),
                                   Text(
-                                    'News & Updates',
+                                    'My Garden',
                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
                                   )
                                 ],
@@ -198,9 +198,9 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade500,
+                                color: Colors.grey.shade900,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                                border: Border.all(color: Colors.black, width: 5),
                               ),
                               child: Column(
                                 children: [
@@ -227,9 +227,9 @@ class _HomePageState extends State<HomePage> {
                               height: 170,
                               width: 170,
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade500,
+                                color: Colors.grey.shade900,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.blue.shade900, width: 5),
+                                border: Border.all(color: Colors.black, width: 5),
                               ),
                               child: Column(
                                 children: [

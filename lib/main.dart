@@ -1,9 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medigard/firebase_options.dart';
-import 'package:medigard/ui_pages/homepage.dart';
-import 'package:medigard/ui_pages/news.dart';
-import 'package:medigard/ui_pages/search.dart';
 import 'Auth_pages/auth_page.dart';
 
 void main()async{
