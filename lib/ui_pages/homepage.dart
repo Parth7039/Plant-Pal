@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:medigard/drawer.dart';
 import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/search.dart';
 import 'package:medigard/ui_pages/task.dart';
 import 'package:medigard/ui_pages/weather.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Auth_pages/loginpage.dart';
 import 'custom_carousel.dart';
 import 'garden.dart';
@@ -24,25 +26,53 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
-            child: Container(
-              color: Colors.black,
-              height: 150,
-              width: 150,
-              child: Column(
-                children: [
-                  Text('Make sure to update the profile and Garden details',style: TextStyle(color: Colors.white,fontSize: 20),)
-                ],
+    _checkIfDialogHasBeenShown();
+  }
+
+  Future<void> _checkIfDialogHasBeenShown() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasShownDialog = prefs.getBool('hasShownDialog') ?? false;
+    if (!hasShownDialog) {
+      prefs.setBool('hasShownDialog', true);
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: Container(
+                height: 150,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(11),
+                  color: Colors.black,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Make sure to update the Profile and Garden details',style: TextStyle(color: Colors.white,fontSize: 20),textAlign: TextAlign.center,),
+                    SizedBox(height: 10,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context); // Close the dialog
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade700,
+                            borderRadius: BorderRadius.circular(11)
+                        ),
+                        child: Center(child: Text('Ok',style: TextStyle(color: Colors.white,fontSize: 15))),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      );
-    });
+            );
+          },
+        );
+      });
+    }
   }
 
   void signUserOut(BuildContext context) async {
