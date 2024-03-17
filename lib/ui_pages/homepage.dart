@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:medigard/drawer.dart';
+import 'package:medigard/ui_pages/gallery.dart';
+import 'package:medigard/ui_pages/guide.dart';
 import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/search.dart';
 import 'package:medigard/ui_pages/task.dart';
@@ -103,7 +105,7 @@ class _HomePageState extends State<HomePage> {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.black,
         title: Text(
-          "Homepage",
+          "Let's plough it!!",
           style: TextStyle(color: Colors.white),
         ),
         actions: [
@@ -148,7 +150,7 @@ class _HomePageState extends State<HomePage> {
             Stack(
               children: [
                 Container(
-                  height: 569,
+                  height: 650,
                   width: 450,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -292,6 +294,62 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GuidePage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey.shade900,
+                          border: Border.all(color: Colors.black,width: 5)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset('assets/images/guide.png',width: 80,height: 100,),
+                            Text('Your Guide',style: TextStyle(color: Colors.white,fontSize: 25),),
+                            Icon(Icons.arrow_circle_right,color: Colors.white,)
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GalleryPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 350,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey.shade900,
+                            border: Border.all(color: Colors.black,width: 5)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset('assets/images/gallery.png',width: 80,height: 100,),
+                            Text('Gallery',style: TextStyle(color: Colors.white,fontSize: 25),),
+                            Icon(Icons.arrow_circle_right,color: Colors.white,)
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 )
