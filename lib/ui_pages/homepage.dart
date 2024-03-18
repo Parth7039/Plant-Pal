@@ -7,7 +7,7 @@ import 'package:medigard/ui_pages/gallery.dart';
 import 'package:medigard/ui_pages/guide.dart';
 import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/search.dart';
-import 'package:medigard/ui_pages/task.dart';
+import 'package:medigard/tasks/task.dart';
 import 'package:medigard/ui_pages/weather.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Auth_pages/loginpage.dart';
