@@ -42,8 +42,9 @@ class _DisplayImagePageState extends State<DisplayImagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade900,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black,
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(
@@ -51,12 +52,12 @@ class _DisplayImagePageState extends State<DisplayImagePage> {
               MaterialPageRoute(builder: (context) => GalleryPage()),
             ); // Changed to pop instead of pushReplacement
           },
-          icon: Icon(Icons.arrow_back_ios_new_sharp),
+          icon: Icon(Icons.arrow_back_ios_new_sharp,color: Colors.white,),
         ),
       ),
       body: isLoading
           ? Center(
-        child: CircularProgressIndicator(), // Show circular progress indicator when loading
+        child: CircularProgressIndicator(color: Colors.black,), // Show circular progress indicator when loading
       )
           : GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

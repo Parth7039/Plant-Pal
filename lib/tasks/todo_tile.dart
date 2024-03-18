@@ -39,12 +39,12 @@ class ToDoTile extends StatelessWidget {
                   value: taskCompleted, onChanged: onChanged),
               Text(
                 taskName,
-                style: TextStyle(decoration: taskCompleted? TextDecoration.lineThrough: TextDecoration.none),
+                style: TextStyle(decoration: taskCompleted? TextDecoration.lineThrough: TextDecoration.none,color: Colors.white),
               ),
             ],
           ),
           decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.black,
               borderRadius: BorderRadius.circular(12)
           ),
         ),

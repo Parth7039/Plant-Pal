@@ -26,7 +26,7 @@ class _GalleryPageState extends State<GalleryPage> {
         child: Icon(Icons.add, color: Colors.white),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black,
         leading: IconButton(
           onPressed: () {
             Navigator.pushReplacement(
@@ -34,7 +34,7 @@ class _GalleryPageState extends State<GalleryPage> {
               MaterialPageRoute(builder: (context) => HomePage()),
             );
           },
-          icon: Icon(Icons.arrow_back_ios_new_sharp),
+          icon: Icon(Icons.arrow_back_ios_new_sharp,color: Colors.white,),
         ),
       ),
       body: Column(
@@ -68,6 +68,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 },
                 child: Text('Save', style: TextStyle(color: Colors.white)),
               ),
+              SizedBox(width: 10,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:medigard/tasks/todo_tile.dart';
+import '../ui_pages/homepage.dart';
 import 'database.dart';
 import 'dialog_box.dart';
 
@@ -70,16 +71,18 @@ class _TaskSchedulePageState extends State<TaskSchedulePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.red.shade200,
+        backgroundColor: Colors.grey.shade800,
         appBar: AppBar(
-          title: Text('To-Do'),
-          backgroundColor: Colors.red.shade400,
+          leading: IconButton(onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()) );}, icon: Icon(Icons.arrow_back_ios_new_sharp,color: Colors.white,),),
+          title: Text('To-Do',style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.black,
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
           onPressed: (){
             createNewTask();
           },
-          child: Icon(Icons.add_circle_outlined,size: 30,),
+          child: Icon(Icons.add_circle_outlined,size: 30,color: Colors.white,),
         ),
         body: ListView.builder(
           itemCount: db.toDoList.length,
