@@ -15,6 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade700,
       appBar: AppBar(
           backgroundColor: Colors.black,
           leading:
@@ -28,12 +29,36 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Center(
         child: Column(
           children: [
-            Icon(Icons.person,size: 130),
+            Icon(Icons.person,size: 130,color: Colors.white,),
             SizedBox(height: 5,),
-            Text(currentUser.email!)
+            Text(currentUser.email!,style: TextStyle(color: Colors.white),),
+            SizedBox(height: 100,),
+            profileContainer('Username'),
+            SizedBox(height: 20,),
+            profileContainer('Email'),
+            SizedBox(height: 20,),
+            profileContainer('Mobile'),
           ],
         ),
       ),
     );
   }
+
+  Widget profileContainer(String label) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label,style: TextStyle(color: Colors.white),),
+        Container(
+          height: 50,
+          width: 350,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)
+          ),
+        )
+      ],
+    );
+  }
+
 }
