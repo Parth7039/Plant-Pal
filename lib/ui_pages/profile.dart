@@ -11,6 +11,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController controller1 = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
   final currentUser = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
-        onPressed: () {  },
+        onPressed: () {profileBox();},
         child: Icon(Icons.edit,color: Colors.white,),
       ),
       body: Center(
@@ -33,18 +35,18 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 5,),
             Text(currentUser.email!,style: TextStyle(color: Colors.white),),
             SizedBox(height: 100,),
-            profileContainer('Username'),
+            profileContainer('Username','Parth Kailas Bhamare'),
             SizedBox(height: 20,),
-            profileContainer('Email'),
+            profileContainer('Email',currentUser.email!),
             SizedBox(height: 20,),
-            profileContainer('Mobile'),
+            profileContainer('Mobile','7039088088'),
           ],
         ),
       ),
     );
   }
 
-  Widget profileContainer(String label) {
+  Widget profileContainer(String label, String containertext) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,8 +58,32 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10)
           ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8,top: 12),
+            child: Text(containertext),
+          ),
         )
       ],
+    );
+  }
+
+  Widget profileBox(){
+    return AlertDialog(
+      content: Container(
+        height: 150,
+        width: 150,
+        child: Column(
+          children: [
+            TextField(
+              controller: controller1,
+            ),
+            SizedBox(height: 5,),
+            TextField(
+              controller: controller2,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
