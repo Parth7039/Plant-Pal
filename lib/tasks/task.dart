@@ -73,8 +73,8 @@ class _TaskSchedulePageState extends State<TaskSchedulePage> {
     return Scaffold(
         backgroundColor: Colors.grey.shade800,
         appBar: AppBar(
-          leading: IconButton(onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()) );}, icon: Icon(Icons.arrow_back_ios_new_sharp,color: Colors.white,),),
-          title: Text('To-Do',style: TextStyle(color: Colors.white),),
+          leading: IconButton(onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()) );}, icon: const Icon(Icons.arrow_back_ios_new_sharp,color: Colors.white,),),
+          title: const Text('To-Do',style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.black,
         ),
         floatingActionButton: FloatingActionButton(
@@ -82,7 +82,7 @@ class _TaskSchedulePageState extends State<TaskSchedulePage> {
           onPressed: (){
             createNewTask();
           },
-          child: Icon(Icons.add_circle_outlined,size: 30,color: Colors.white,),
+          child: const Icon(Icons.add_circle_outlined,size: 30,color: Colors.white,),
         ),
         body: ListView.builder(
           itemCount: db.toDoList.length,

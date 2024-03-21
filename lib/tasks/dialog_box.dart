@@ -7,7 +7,7 @@ class DialogBox extends StatelessWidget {
   final VoidCallback onSave;
   final VoidCallback onCancel;
 
-  DialogBox({
+  const DialogBox({
     Key? key,
     required this.controller,
     required this.onSave,
@@ -24,7 +24,7 @@ class DialogBox extends StatelessWidget {
           children: [
             TextField(
               controller: controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 fillColor: Colors.white,
                 filled: true,
                 border: OutlineInputBorder(),
@@ -34,12 +34,12 @@ class DialogBox extends StatelessWidget {
                 hintText: "Add a new task",
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
             Row(
               children: [
                 MyButton(text: "Add", onPressed: onSave),
-                SizedBox(width: 30),
+                const SizedBox(width: 30),
                 MyButton(text: "Cancel", onPressed: onCancel),
               ],
             ),
