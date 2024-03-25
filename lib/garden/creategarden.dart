@@ -161,6 +161,7 @@ class _createGardenState extends State<createGarden> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        keyboardType: TextInputType.number,
                         controller: controller2,
                         decoration: InputDecoration(
                           labelText: 'Length',
@@ -174,6 +175,7 @@ class _createGardenState extends State<createGarden> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
+                        keyboardType: TextInputType.number,
                         controller: controller3,
                         decoration: InputDecoration(
                           labelText: 'Width',
