@@ -11,6 +11,7 @@ dependencies:
   firebase_auth: ^4.17.4
   cloud_firestore: ^4.15.4
   firebase_storage: ^11.6.0
+  firebase_database: ^10.4.10
   hive: ^2.2.3
   image_picker: ^1.0.7
   file_picker: ^6.1.1
@@ -18,6 +19,7 @@ dependencies:
   slide_to_act: ^2.0.2
   flutter_slidable: ^3.0.1
   curved_navigation_bar: ^1.0.3
+  fluttertoast: ^8.2.4
   hive_flutter: ^1.1.0
   shared_preferences: ^2.2.2
   swipe_cards: ^2.0.0+1

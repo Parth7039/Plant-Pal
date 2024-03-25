@@ -1,9 +1,12 @@
 import 'dart:io';
-
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:slide_to_act/slide_to_act.dart';
-import 'garden.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'garden.dart'; // Import Firestore
 
 class createGarden extends StatefulWidget {
   final String name;
@@ -16,12 +19,80 @@ class createGarden extends StatefulWidget {
 
 class _createGardenState extends State<createGarden> {
   XFile? _image;
+  late final TextEditingController controller1;
+  late final TextEditingController controller2;
+  late final TextEditingController controller3;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers
+    controller1 = TextEditingController();
+    controller2 = TextEditingController();
+    controller3 = TextEditingController();
+  }
 
   Future<void> _pickImage(ImageSource source) async {
     XFile? pickedImage = await ImagePicker().pickImage(source: source);
     setState(() {
       _image = pickedImage;
     });
+  }
+
+  Future<void> _submitData() async {
+    final plantName = controller1.text;
+    final length = controller2.text;
+    final width = controller3.text;
+
+    // Check if all required fields are filled
+    if (plantName.isEmpty || length.isEmpty || width.isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'Please fill all the fields',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    } else if (_image == null) {
+      Fluttertoast.showToast(
+        msg: 'Please select an image',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
+
+    try {
+      // Upload image to Firebase Storage
+      final FirebaseStorage storage = FirebaseStorage.instance;
+      final Reference storageReference = storage.ref().child('images/${DateTime.now()}.png');
+      final uploadTask = storageReference.putFile(File(_image!.path));
+      await uploadTask.whenComplete(() => print('Image uploaded'));
+      final imageUrl = await storageReference.getDownloadURL();
+
+      // Save data to Firestore
+      final CollectionReference gardensCollection = FirebaseFirestore.instance.collection('gardens');
+      await gardensCollection.add({
+        'garden_name' : widget.name,
+        'plantName': plantName,
+        'length': length,
+        'width': width,
+        'imageUrl': imageUrl,
+      });
+
+      print('Data saved to Firestore');
+
+      // Navigate to Garden_displayPage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Garden_displayPage()),
+      );
+    } catch (error) {
+      print('Failed to save data: $error');
+    }
   }
 
   @override
@@ -65,33 +136,54 @@ class _createGardenState extends State<createGarden> {
                 )
                     : ClipRRect(
                   borderRadius: BorderRadius.circular(13),
-                      child: Image.file(
-                                      File(_image!.path),
-                                      fit: BoxFit.cover,
-                                    ),
+                  child: Image.file(
+                    File(_image!.path),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: controller1,
+                  decoration: InputDecoration(
+                      labelText: 'Plants',
+                      hintText: 'Name of plants in your garden',
+                      border: OutlineInputBorder()
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: controller2,
+                        decoration: InputDecoration(
+                          labelText: 'Length',
+                          hintText: 'in foot!!',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
                     ),
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Plants',
-                    hintText: 'Name of plants in your garden',
-                    border: OutlineInputBorder()
                   ),
-                ),
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-
-                      )
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: controller3,
+                        decoration: InputDecoration(
+                          labelText: 'Width',
+                          hintText: 'in foot!!',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               SizedBox(height: 10,),
               Padding(
@@ -125,9 +217,7 @@ class _createGardenState extends State<createGarden> {
                 textColor: Colors.black,
                 sliderButtonIcon: const Icon(Icons.grass,color: Colors.white,),
                 sliderRotate: false,
-                onSubmit: (){
-                  print("Garden created");
-                },
+                onSubmit: _submitData, // Call _submitData function when SlideAction is submitted
               )
             ],
           ),
