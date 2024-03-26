@@ -12,6 +12,7 @@ dependencies:
   cloud_firestore: ^4.15.4
   firebase_storage: ^11.6.0
   firebase_database: ^10.4.10
+  percent_indicator: ^4.2.3
   hive: ^2.2.3
   image_picker: ^1.0.7
   file_picker: ^6.1.1
