@@ -52,8 +52,8 @@ class GardenTile extends StatelessWidget {
             itemCount: gardens.length,
             itemBuilder: (context, index) {
               final garden = gardens[index];
-              final imageUrl = garden['imageUrl'];
-              final gardenName = garden['garden_name'];
+              final imageUrl = garden.get('imageUrl') ?? '';
+              final gardenName = garden.get('garden_name') ?? '';
 
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -63,13 +63,20 @@ class GardenTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: ListTile(
-                    leading: imageUrl != null ? Image.network(imageUrl) : SizedBox(),
+                    leading: imageUrl != null
+                        ? Image.network(imageUrl)
+                        : SizedBox(),
                     trailing: IconButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => View_GardenPage(imageUrl: imageUrl ?? '', initialPercent: 0.1,),
+                            builder: (context) =>
+                                View_GardenPage(
+                                  imageUrl: imageUrl ?? '', // Handle null value
+                                  gardenName: gardenName ??
+                                      '', // Handle null value
+                                ),
                           ),
                         );
                       },
