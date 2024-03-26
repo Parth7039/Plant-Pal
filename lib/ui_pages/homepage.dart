@@ -12,7 +12,7 @@ import 'package:medigard/ui_pages/weather.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Auth_pages/loginpage.dart';
 import 'custom_carousel.dart';
-import 'garden.dart';
+import '../garden/garden.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => create_GardenPage(),
+                                builder: (context) => Garden_displayPage(),
                               ),
                             );
                           },
