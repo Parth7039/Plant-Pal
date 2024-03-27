@@ -18,7 +18,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController usernameController = TextEditingController();
+    TextEditingController emailcontroller = TextEditingController();
+    TextEditingController usernamecontroller = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
 
@@ -38,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
         if (passwordController.text == confirmPasswordController.text) {
           UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: usernameController.text,
+            email: emailcontroller.text,
             password: passwordController.text,
           );
 
@@ -46,6 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
             {
               'uid': userCredential.user!.uid,
               'email': userCredential.user!.email,
+              'username': usernamecontroller.text,
             },
           );
         } else {
@@ -100,10 +102,34 @@ class _RegisterPageState extends State<RegisterPage> {
                     padding: const EdgeInsets.only(left: 8, right: 8),
                     child: TextField(
                       style: TextStyle(color: Colors.white),
-                      controller: usernameController,
+                      controller: usernamecontroller,
                       decoration: InputDecoration(
                         labelText: 'Username',
-                        hintText: 'Enter your username',
+                        hintText: 'Enter your Username',
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(color: Colors.black)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(color: Colors.white)),
+                        fillColor: Colors.transparent.withOpacity(0.5),
+                        filled: true,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8),
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                      controller: emailcontroller,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        hintText: 'Enter your Mail-Id',
                         hintStyle: TextStyle(color: Colors.white),
                         labelStyle: const TextStyle(
                             color: Colors.white,

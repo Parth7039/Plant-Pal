@@ -5,23 +5,25 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 class View_GardenPage extends StatefulWidget {
   final String imageUrl;
   final String gardenName;
+  final String soil_type;
 
-  const View_GardenPage({Key? key, required this.imageUrl, required this.gardenName}) : super(key: key);
+  const View_GardenPage({Key? key, required this.imageUrl, required this.gardenName, required this.soil_type}) : super(key: key);
 
   @override
   _View_GardenPageState createState() => _View_GardenPageState();
 }
 
 class _View_GardenPageState extends State<View_GardenPage> {
-  double _percent = 0.0; // Initialize with 0.0
+  double _percent = 0.0;
+  String _soilType = '';
 
   @override
   void initState() {
     super.initState();
-    _loadPercentFromFirebase();
+    _loadPercentAndSoilTypeFromFirebase();
   }
 
-  void _loadPercentFromFirebase() async {
+  void _loadPercentAndSoilTypeFromFirebase() async {
     try {
       final docSnapshot = await FirebaseFirestore.instance.collection('percentages').doc(widget.gardenName).get();
       if (docSnapshot.exists) {
@@ -35,6 +37,21 @@ class _View_GardenPageState extends State<View_GardenPage> {
         }
       } else {
         print('The document does not exist.');
+      }
+
+      // Fetch soil type
+      final gardenSnapshot = await FirebaseFirestore.instance.collection('gardens').doc(widget.gardenName).get();
+      if (gardenSnapshot.exists) {
+        final gardenData = gardenSnapshot.data();
+        if (gardenData != null && gardenData.containsKey('soilType')) {
+          setState(() {
+            _soilType = gardenData['soilType'] ?? '';
+          });
+        } else {
+          print('The document does not contain the field "soilType".');
+        }
+      } else {
+        print('The garden document does not exist.');
       }
     } catch (e) {
       print('Error fetching document: $e');
@@ -154,7 +171,9 @@ class _View_GardenPageState extends State<View_GardenPage> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 15,),
+            Text('Soil Type: $_soilType'),
           ],
         ),
       ),

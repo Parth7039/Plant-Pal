@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -66,6 +67,30 @@ class _createGardenState extends State<createGarden> {
     }
 
     try {
+      // Check if the garden already exists
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        final existingGardens = await FirebaseFirestore.instance
+            .collection('gardens')
+            .where('userId', isEqualTo: currentUser.uid)
+            .where('plantName', isEqualTo: plantName)
+            .where('length', isEqualTo: length)
+            .where('width', isEqualTo: width)
+            .get();
+
+        if (existingGardens.docs.isNotEmpty) {
+          // Garden with the same details already exists
+          Fluttertoast.showToast(
+            msg: 'This garden already exists',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.black,
+            textColor: Colors.white,
+          );
+          return;
+        }
+      }
+
       // Upload image to Firebase Storage
       final FirebaseStorage storage = FirebaseStorage.instance;
       final Reference storageReference = storage.ref().child('images/${DateTime.now()}.png');
@@ -74,27 +99,37 @@ class _createGardenState extends State<createGarden> {
       final imageUrl = await storageReference.getDownloadURL();
 
       // Save data to Firestore
-      final CollectionReference gardensCollection = FirebaseFirestore.instance.collection('gardens');
-      await gardensCollection.add({
-        'garden_name' : widget.name,
-        'plantName': plantName,
-        'length': length,
-        'width': width,
-        'imageUrl': imageUrl,
-      });
+      if (currentUser != null) {
+        final CollectionReference gardensCollection = FirebaseFirestore.instance.collection('gardens');
+        await gardensCollection.add({
+          'userId': currentUser.uid, // Save the user ID
+          'garden_name' : widget.name,
+          'plantName': plantName,
+          'length': length,
+          'width': width,
+          'soilType': dropdownValue, // Include the selected value of the dropdown
+          'imageUrl': imageUrl,
+        });
 
-      print('Data saved to Firestore');
+        print('Data saved to Firestore');
 
-      // Navigate to Garden_displayPage
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Garden_displayPage()),
-      );
+        // Navigate to Garden_displayPage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Garden_displayPage()),
+        );
+      } else {
+        print('User not logged in');
+      }
     } catch (error) {
       print('Failed to save data: $error');
     }
   }
 
+
+
+  String dropdownValue = 'Soils';
+  List<String> _items = ['Soils', 'Clay Soil', 'Sandy Soil', 'Silty Soil', 'Peaty Soil', 'Chalky Soil', 'Loamy Soil'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,37 +224,51 @@ class _createGardenState extends State<createGarden> {
               ),
               SizedBox(height: 10,),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Row(
+                  children: [
+                    DropdownButton<String>(
+                      onTap: _submitData,
+                      focusColor: Colors.black,
+                      dropdownColor: Colors.grey.shade500,
+                      borderRadius: BorderRadius.circular(15),
+                      value: dropdownValue,
+                      icon: Icon(Icons.arrow_drop_down),
+                      style: TextStyle(color: Colors.grey.shade900),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.black,
+                      ),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue ?? dropdownValue; // Use the current value if newValue is null
+                        });
+                      },
+                      items: _items.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                )
 
-                      )
-                  ),
-                ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 150,),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-
-                      )
-                  ),
+                padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                child: SlideAction(
+                  borderRadius: 20,
+                  innerColor: Colors.black,
+                  outerColor: Colors.white,
+                  text: "Create a Garden",
+                  textStyle: TextStyle(fontSize: 17),
+                  textColor: Colors.black,
+                  sliderButtonIcon: const Icon(Icons.grass,color: Colors.white,),
+                  sliderRotate: false,
+                  onSubmit: _submitData, // Call _submitData function when SlideAction is submitted
                 ),
-              ),
-              SizedBox(height: 50,),
-              SlideAction(
-                borderRadius: 20,
-                innerColor: Colors.black,
-                outerColor: Colors.white,
-                text: "Create a Garden",
-                textStyle: TextStyle(fontSize: 17),
-                textColor: Colors.black,
-                sliderButtonIcon: const Icon(Icons.grass,color: Colors.white,),
-                sliderRotate: false,
-                onSubmit: _submitData, // Call _submitData function when SlideAction is submitted
               )
             ],
           ),

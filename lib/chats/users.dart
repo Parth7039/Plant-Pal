@@ -73,7 +73,7 @@ class _ChatUsersState extends State<ChatUsers> {
           children: [
             Icon(Icons.person),
             SizedBox(width: 20,),
-            Text(userData["email"]),
+            Text(userData["username"]),
           ],
         ),
       ),
