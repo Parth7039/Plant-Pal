@@ -21,12 +21,14 @@ class ProductBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Container(
-              height: 180,
-              width: 170,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.asset(imagePath,fit: BoxFit.cover,)),
+            child: GestureDetector(
+              child: Container(
+                height: 180,
+                width: 170,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(imagePath,fit: BoxFit.cover,)),
+              ),
             ),
           ),
           Text(productName,style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.white),),

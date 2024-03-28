@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:medigard/purchase/productbox.dart';
+import 'package:medigard/ui_pages/homepage.dart';
 class productsDisplayPage extends StatelessWidget {
   const productsDisplayPage({super.key});
 
@@ -11,7 +12,7 @@ class productsDisplayPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
           },
           icon: const Icon(Icons.arrow_back_ios_new_sharp, color: Colors.white),
         ),
