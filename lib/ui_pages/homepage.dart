@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:medigard/drawer.dart';
+import 'package:medigard/purchase/productsdisplay.dart';
 import 'package:medigard/ui_pages/gallery.dart';
 import 'package:medigard/ui_pages/guide.dart';
 import 'package:medigard/ui_pages/profile.dart';
@@ -237,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => WeatherPage(),
+                                builder: (context) => productsDisplayPage(),
                               ),
                             );
                           },
