@@ -7,10 +7,8 @@ import 'package:medigard/plant_scanner/Scanning.dart';
 import 'package:medigard/purchase/productsdisplay.dart';
 import 'package:medigard/ui_pages/gallery.dart';
 import 'package:medigard/ui_pages/guide.dart';
-import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/search.dart';
 import 'package:medigard/tasks/task.dart';
-import 'package:medigard/ui_pages/weather.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Auth_pages/loginpage.dart';
 import 'custom_carousel.dart';
@@ -173,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => scanPage(),
+                                builder: (context) => ScanPage(),
                               ),
                             );
                           },
@@ -191,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                                 Image.asset('assets/images/sprout.png', height: 100, width: 100),
                                 SizedBox(height: 20),
                                 Text(
-                                  'Plant Scan',
+                                  'Scan Plant',
                                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                                 )
                               ],
