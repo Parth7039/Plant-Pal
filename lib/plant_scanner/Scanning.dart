@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+
 import '../ui_pages/homepage.dart';
 
 class ScanPage extends StatefulWidget {
@@ -13,6 +17,35 @@ class ScanPage extends StatefulWidget {
 
 class _ScanPageState extends State<ScanPage> {
   XFile? _image;
+  String _result = '';
+  final String _apiKey = 'VIc9NC4WJCOqig2kh1utHxFDyffXDV8e4d7BjiwAshwZqSocNw';
+
+  Future<void> _checkDisease() async {
+    if (_image == null) {
+      setState(() {
+        _result = 'Please select an image.';
+      });
+      return;
+    }
+
+    var apiUrl = Uri.parse('https://plant.id/api/v3/identification');
+    var request = http.MultipartRequest('POST', apiUrl)
+      ..headers['Api-Key'] = _apiKey
+      ..files.add(await http.MultipartFile.fromPath('images', _image!.path));
+
+    try {
+      var response = await request.send();
+      var jsonResponse = await http.Response.fromStream(response).then((response) => jsonDecode(response.body));
+
+      setState(() {
+        _result = jsonResponse['suggestions'][0]['id']; // Adjust as per API response structure
+      });
+    } catch (e) {
+      setState(() {
+        _result = 'Error: $e';
+      });
+    }
+  }
 
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -48,14 +81,14 @@ class _ScanPageState extends State<ScanPage> {
                 border: Border.all(width: 3),
               ),
               child: _image == null
-                  ? Placeholder()
+                  ? const Icon(Icons.arrow_downward_rounded,size: 60,)
                   : ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                    child: Image.file(
-                                    File(_image!.path),
-                                    fit: BoxFit.fill,
-                                  ),
-                  ),
+                child: Image.file(
+                  File(_image!.path),
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
             GestureDetector(
               onTap: _pickImage,
@@ -68,14 +101,34 @@ class _ScanPageState extends State<ScanPage> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Icon(Icons.photo, size: 35, color: Colors.white),
-                    SizedBox(width: 40),
+                    const SizedBox(width: 40),
+                    Text('Upload', style: TextStyle(fontSize: 25, color: Colors.white)),
+                  ],
+                ),
+              ),
+            ),
+            Text(_result),
+            GestureDetector(
+              onTap: _checkDisease,
+              child: Container(
+                height: 50,
+                width: 200,
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade800,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 10),
+                    Icon(Icons.photo, size: 35, color: Colors.white),
+                    const SizedBox(width: 40),
                     Text('Scan', style: TextStyle(fontSize: 25, color: Colors.white)),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
