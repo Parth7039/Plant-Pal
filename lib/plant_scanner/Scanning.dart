@@ -28,7 +28,7 @@ class _ScanPageState extends State<ScanPage> {
       return;
     }
 
-    var apiUrl = Uri.parse('https://plant.id/api/v3/identification');
+    var apiUrl = Uri.parse('https://plant.id/api/v3/identification?details=access_token,result,classification.suggestions.name,classification.suggestions.probability,watering');
     var request = http.MultipartRequest('POST', apiUrl)
       ..headers['Api-Key'] = _apiKey
       ..files.add(await http.MultipartFile.fromPath('images', _image!.path));
@@ -37,15 +37,54 @@ class _ScanPageState extends State<ScanPage> {
       var response = await request.send();
       var jsonResponse = await http.Response.fromStream(response).then((response) => jsonDecode(response.body));
 
-      setState(() {
-        _result = jsonResponse['suggestions'][0]['id']; // Adjust as per API response structure
-      });
+      if (jsonResponse['access_token'] != null) {
+        setState(() {
+          var suggestions = jsonResponse['result']['classification']['suggestions'];
+          if (suggestions != null && suggestions.isNotEmpty) {
+            _result = 'Suggestions:\n';
+            for (var suggestion in suggestions) {
+              var name = suggestion['name'];
+              var probability = (suggestion['probability']*100).toInt();
+              _result += 'Scientific Name: $name   Probability: $probability%\n';
+            }
+          } else {
+            _result = 'No suggestions found.\n';
+          }
+
+          var watering = jsonResponse['result']['watering'];
+          if (watering != null) {
+            var minWatering = _getWateringLevel(watering['min']);
+            var maxWatering = _getWateringLevel(watering['max']);
+            _result += 'Watering Preference: $minWatering to $maxWatering\n';
+          } else {
+            _result += 'Watering preference not available.\n';
+          }
+        });
+      } else {
+        setState(() {
+          _result = 'No access token found in the response.';
+        });
+      }
     } catch (e) {
       setState(() {
         _result = 'Error: $e';
       });
     }
   }
+
+  String _getWateringLevel(int level) {
+    switch (level) {
+      case 1:
+        return 'Dry';
+      case 2:
+        return 'Medium';
+      case 3:
+        return 'Wet';
+      default:
+        return 'Unknown';
+    }
+  }
+
 
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -70,66 +109,68 @@ class _ScanPageState extends State<ScanPage> {
         backgroundColor: Colors.black,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              height: 500,
-              width: 350,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(width: 3),
-              ),
-              child: _image == null
-                  ? const Icon(Icons.arrow_downward_rounded,size: 60,)
-                  : ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.file(
-                  File(_image!.path),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: _pickImage,
-              child: Container(
-                height: 50,
-                width: 200,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: 500,
+                width: 350,
                 decoration: BoxDecoration(
-                  color: Colors.blue.shade800,
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(width: 3),
                 ),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 10),
-                    Icon(Icons.photo, size: 35, color: Colors.white),
-                    const SizedBox(width: 40),
-                    Text('Upload', style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ],
-                ),
-              ),
-            ),
-            Text(_result),
-            GestureDetector(
-              onTap: _checkDisease,
-              child: Container(
-                height: 50,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade800,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 10),
-                    Icon(Icons.photo, size: 35, color: Colors.white),
-                    const SizedBox(width: 40),
-                    Text('Scan', style: TextStyle(fontSize: 25, color: Colors.white)),
-                  ],
+                child: _image == null
+                    ? const Icon(Icons.arrow_downward_rounded, size: 60,)
+                    : ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.file(
+                    File(_image!.path),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  height: 50,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade800,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Icon(Icons.photo, size: 35, color: Colors.white),
+                      const SizedBox(width: 40),
+                      Text('Upload', style: TextStyle(fontSize: 25, color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+              Text(_result),
+              GestureDetector(
+                onTap: _checkDisease,
+                child: Container(
+                  height: 50,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade800,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 10),
+                      Icon(Icons.photo, size: 35, color: Colors.white),
+                      const SizedBox(width: 40),
+                      Text('Scan', style: TextStyle(fontSize: 25, color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
