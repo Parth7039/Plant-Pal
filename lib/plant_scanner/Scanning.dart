@@ -28,7 +28,7 @@ class _ScanPageState extends State<ScanPage> {
       return;
     }
 
-    var apiUrl = Uri.parse('https://plant.id/api/v3/identification?details=access_token,result,classification.suggestions.name,classification.suggestions.probability,watering');
+    var apiUrl = Uri.parse('https://plant.id/api/v3/identification?details=access_token,result,classification.suggestions.name,classification.suggestions.probability,classification.suggestions.common_names,watering');
     var request = http.MultipartRequest('POST', apiUrl)
       ..headers['Api-Key'] = _apiKey
       ..files.add(await http.MultipartFile.fromPath('images', _image!.path));
@@ -41,11 +41,18 @@ class _ScanPageState extends State<ScanPage> {
         setState(() {
           var suggestions = jsonResponse['result']['classification']['suggestions'];
           if (suggestions != null && suggestions.isNotEmpty) {
-            _result = 'Suggestions:\n';
-            for (var suggestion in suggestions) {
-              var name = suggestion['name'];
-              var probability = (suggestion['probability']*100).toInt();
-              _result += 'Scientific Name: $name   Probability: $probability%\n';
+            // Sort suggestions based on probability in descending order
+            suggestions.sort((a, b) => b['probability'].compareTo(a['probability']) as int);
+
+            _result = 'Top 2 Suggestions:\n';
+            for (var i = 0; i < suggestions.length && i < 2; i++) {
+              var suggestion = suggestions[i];
+              var scientificName = suggestion['name'];
+              var probability = (suggestion['probability'] * 100).toInt();
+              var commonNames = suggestion['common_names']?.join(', ') ?? 'Not available';
+              _result += 'Scientific Name: $scientificName\n';
+              _result += 'Common Names: $commonNames\n';
+              _result += 'Probability: $probability%\n\n';
             }
           } else {
             _result = 'No suggestions found.\n';

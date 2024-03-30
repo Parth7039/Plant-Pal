@@ -16,6 +16,8 @@ class View_GardenPage extends StatefulWidget {
 class _View_GardenPageState extends State<View_GardenPage> {
   double _percent = 0.0;
   String _soilType = '';
+  double _length = 0.0;
+  double _width = 0.0;
 
   @override
   void initState() {
@@ -49,6 +51,16 @@ class _View_GardenPageState extends State<View_GardenPage> {
           });
         } else {
           print('The document does not contain the field "soilType".');
+        }
+
+        // Fetch length and width
+        if (gardenData != null && gardenData.containsKey('length') && gardenData.containsKey('width')) {
+          setState(() {
+            _length = double.parse(gardenData['length'].toString());
+            _width = double.parse(gardenData['width'].toString());
+          });
+        } else {
+          print('The document does not contain the fields "length" or "width".');
         }
       } else {
         print('The garden document does not exist.');
@@ -173,11 +185,11 @@ class _View_GardenPageState extends State<View_GardenPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(child: Text('Details',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
+                          Center(child: Text('Details', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
                           SizedBox(height: 15,),
                           Text('Soil Type: $_soilType'),
-                          Text('Length: '),
-                          Text('Width: '),
+                          Text('Length: ${_length.toStringAsFixed(2)}'), // Adjust formatting as needed
+                          Text('Width: ${_width.toStringAsFixed(2)}'), // Adjust formatting as needed
                         ],
                       ),
                     ),
