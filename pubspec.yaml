@@ -30,6 +30,11 @@ dependencies:
   geolocator: ^11.0.0
   geocoding: ^2.1.1
   lottie: ^3.0.0
+  youtube_player_flutter: ^8.1.2
+  url_launcher:
+  json_annotation: ^4.0.1
+  built_value: ^8.1.0
+  built_collection: ^5.0.0
   flutter:
     sdk: flutter
 
@@ -43,3 +48,4 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
+
