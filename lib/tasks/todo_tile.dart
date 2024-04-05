@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 
 class ToDoTile extends StatelessWidget {
 
@@ -7,13 +8,15 @@ class ToDoTile extends StatelessWidget {
   final bool taskCompleted;
   Function(bool?)? onChanged;
   Function(BuildContext)? deleteFunction;
+  final String currentDate;
 
-  ToDoTile({super.key,
+  ToDoTile({Key? key,
     required this.taskName,
     required this.taskCompleted,
     required this.onChanged,
     required this.deleteFunction,
-  });
+  }) : currentDate = DateFormat('dd-MM-yyyy').format(DateTime.now()),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,23 +33,29 @@ class ToDoTile extends StatelessWidget {
             )
           ],
         ),
-        child: Container(
-          padding: EdgeInsets.all(24.0),
-          child: Row(
-            children: [
-              Checkbox(
-                  activeColor: Colors.black,
-                  value: taskCompleted, onChanged: onChanged),
-              Text(
-                taskName,
-                style: TextStyle(decoration: taskCompleted? TextDecoration.lineThrough: TextDecoration.none,color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(currentDate,style: TextStyle(color: Colors.white),),
+            Container(
+              padding: EdgeInsets.all(24.0),
+              child: Row(
+                children: [
+                  Checkbox(
+                      activeColor: Colors.black,
+                      value: taskCompleted, onChanged: onChanged),
+                  Text(
+                    taskName,
+                    style: TextStyle(decoration: taskCompleted? TextDecoration.lineThrough: TextDecoration.none,color: Colors.white),
+                  ),
+                ],
               ),
-            ],
-          ),
-          decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(12)
-          ),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(12)
+              ),
+            ),
+          ],
         ),
       ),
     );

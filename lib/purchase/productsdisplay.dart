@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:medigard/purchase/productbox.dart';
 import 'package:medigard/ui_pages/homepage.dart';
-class productsDisplayPage extends StatelessWidget {
-  const productsDisplayPage({super.key});
+class flowerDisplayPage extends StatelessWidget {
+  const flowerDisplayPage({super.key});
 
   @override
   Widget build(BuildContext context) {
