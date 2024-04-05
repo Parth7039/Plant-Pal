@@ -112,7 +112,7 @@ class _ScanPageState extends State<ScanPage> {
           },
           icon: const Icon(Icons.arrow_back_ios_new_sharp, color: Colors.white),
         ),
-        title: const Text('Shopify', style: TextStyle(color: Colors.white)),
+        title: const Text('Scanner', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
       ),
       body: Center(
@@ -128,7 +128,13 @@ class _ScanPageState extends State<ScanPage> {
                   border: Border.all(width: 3),
                 ),
                 child: _image == null
-                    ? const Icon(Icons.arrow_downward_rounded, size: 60,)
+                    ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_downward_rounded, size: 60,),
+                        Text('Upload Image from below')
+                      ],
+                    )
                     : ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.file(
@@ -137,44 +143,49 @@ class _ScanPageState extends State<ScanPage> {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: _pickImage,
-                child: Container(
-                  height: 50,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade800,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Icon(Icons.photo, size: 35, color: Colors.white),
-                      const SizedBox(width: 40),
-                      Text('Upload', style: TextStyle(fontSize: 25, color: Colors.white)),
-                    ],
-                  ),
-                ),
-              ),
               Text(_result),
-              GestureDetector(
-                onTap: _checkDisease,
-                child: Container(
-                  height: 50,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade800,
-                    borderRadius: BorderRadius.circular(25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade800,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10),
+                          Icon(Icons.photo, size: 35, color: Colors.white),
+                          const SizedBox(width: 15),
+                          Text('Upload', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        ],
+                      ),
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 10),
-                      Icon(Icons.photo, size: 35, color: Colors.white),
-                      const SizedBox(width: 40),
-                      Text('Scan', style: TextStyle(fontSize: 25, color: Colors.white)),
-                    ],
+                  GestureDetector(
+                    onTap: _checkDisease,
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade800,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 10),
+                          Icon(Icons.photo, size: 35, color: Colors.white),
+                          const SizedBox(width: 30),
+                          Text('Scan', style: TextStyle(fontSize: 25, color: Colors.white)),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

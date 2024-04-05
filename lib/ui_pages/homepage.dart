@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:medigard/drawer.dart';
 import 'package:medigard/plant_scanner/Scanning.dart';
+import 'package:medigard/purchase/cart.dart';
 import 'package:medigard/purchase/productsdisplay.dart';
 import 'package:medigard/ui_pages/gallery.dart';
 import 'package:medigard/ui_pages/guide.dart';
@@ -237,7 +238,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => productsDisplayPage(),
+                                builder: (context) => CartPage(),
                               ),
                             );
                           },
