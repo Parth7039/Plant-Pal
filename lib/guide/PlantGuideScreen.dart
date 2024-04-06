@@ -12,6 +12,7 @@ class PlantGuideScreen extends StatefulWidget {
   @override
   _PlantGuideScreenState createState() => _PlantGuideScreenState();
 }
+
 class _PlantGuideScreenState extends State<PlantGuideScreen> {
   late Future<Map<String, dynamic>> futurePlantGuide;
 
@@ -50,7 +51,8 @@ class _PlantGuideScreenState extends State<PlantGuideScreen> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            final guideData = snapshot.data!['data'][0];
+            final List<dynamic> plantDataList = snapshot.data!['data'];
+            final guideData = plantDataList.firstWhere((plantData) => plantData['species_id'] == widget.plantId);
             final speciesId = guideData['species_id'];
             final commonName = guideData['common_name'];
             final scientificNames = guideData['scientific_name'].join(', ');
@@ -79,7 +81,7 @@ class _PlantGuideScreenState extends State<PlantGuideScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Type: ${section['type']}',
+                        '${section['type']}',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 4.0),

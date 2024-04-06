@@ -1,11 +1,10 @@
-// PlantDetailsScreen.dart
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'config.dart';
 import 'PlantGuideScreen.dart';
+
 class PlantDetailsScreen extends StatefulWidget {
   @override
   _PlantDetailsScreenState createState() => _PlantDetailsScreenState();
@@ -102,10 +101,12 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
           : FutureBuilder<List<dynamic>>(
         future: futurePlantDetails,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState ==
+              ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+                child: Text('Error: ${snapshot.error}'));
           } else {
             final dataList = snapshot.data!;
 
@@ -117,21 +118,39 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
                   child: ListTile(
                     leading: datum['default_image'] != null
                         ? Image.network(
-                      datum['default_image']['thumbnail'] ?? '',
+                      datum['default_image']['thumbnail'] ??
+                          '',
                       width: 50,
                       height: 50,
                     )
                         : SizedBox(),
                     title: Text(datum['common_name'] ?? 'Unknown'),
-                    subtitle: Text(datum['scientific_name'] != null
-                        ? (datum['scientific_name'] as List).join(', ')
-                        : 'Unknown'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Plant ID: ${datum['id']}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          datum['scientific_name'] != null
+                              ? (datum['scientific_name']
+                          as List)
+                              .join(', ')
+                              : 'Unknown',
+                        ),
+                      ],
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              PlantGuideScreen(plantId: datum['id']),
+                          builder: (context) => PlantGuideScreen(
+                            plantId: datum['id'],
+                          ),
                         ),
                       );
                     },
@@ -163,4 +182,3 @@ class _PlantDetailsScreenState extends State<PlantDetailsScreen> {
     );
   }
 }
-
