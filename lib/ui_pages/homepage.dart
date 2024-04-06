@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:medigard/drawer.dart';
 import 'package:medigard/plant_scanner/Scanning.dart';
 import 'package:medigard/purchase/cart.dart';
-import 'package:medigard/purchase/productsdisplay.dart';
+import 'package:medigard/purchase/flowers.dart';
 import 'package:medigard/ui_pages/gallery.dart';
 import 'package:medigard/ui_pages/guide.dart';
 import 'package:medigard/ui_pages/search.dart';

@@ -93,7 +93,7 @@ class _createGardenState extends State<createGarden> {
 
       // Upload image to Firebase Storage
       final FirebaseStorage storage = FirebaseStorage.instance;
-      final Reference storageReference = storage.ref().child('images/${DateTime.now()}.png');
+      final Reference storageReference = storage.ref().child('images2/${DateTime.now()}.png');
       final uploadTask = storageReference.putFile(File(_image!.path));
       await uploadTask.whenComplete(() => print('Image uploaded'));
       final imageUrl = await storageReference.getDownloadURL();

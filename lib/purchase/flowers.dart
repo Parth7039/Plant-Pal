@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:medigard/purchase/cart.dart';
 import 'package:medigard/purchase/productbox.dart';
 import 'package:medigard/ui_pages/homepage.dart';
 class flowerDisplayPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class flowerDisplayPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
           },
           icon: const Icon(Icons.arrow_back_ios_new_sharp, color: Colors.white),
         ),
