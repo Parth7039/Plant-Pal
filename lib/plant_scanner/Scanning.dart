@@ -95,7 +95,7 @@ class _ScanPageState extends State<ScanPage> {
 
   Future<void> _pickImage() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedImage = await _picker.pickImage(source: ImageSource.camera);
 
     setState(() {
       _image = pickedImage;
