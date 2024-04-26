@@ -13,8 +13,20 @@ class SettingsPage extends StatelessWidget {
           leading:
           IconButton(onPressed: () { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()) );}, icon: Icon(Icons.arrow_back_ios_new_sharp),)
       ),
-      body: Center(
-        child: Text("Update your Profile"),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+          child: Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Center(
+              child: Text('Reset Password',style: TextStyle(color: Colors.white),),
+            ),
+          ),
+        ),
       ),
     );
   }
