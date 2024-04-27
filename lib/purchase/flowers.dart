@@ -43,49 +43,49 @@ class flowerDisplayPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ProductBox(productName: 'Rose', imagePath: 'assets/images/rose.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Blue Rose', imagePath: 'assets/images/rose3.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Blue Rose', imagePath: 'assets/images/rose3.jpg', productRate: '260/Kg',),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ProductBox(productName: 'Sunflower', imagePath: 'assets/images/sunflower.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Lotus', imagePath: 'assets/images/lotus.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Sunflower', imagePath: 'assets/images/sunflower.jpg', productRate: '110/Kg',),
+                  ProductBox(productName: 'Lotus', imagePath: 'assets/images/lotus.jpg', productRate: '160/Kg',),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ProductBox(productName: 'Lily', imagePath: 'assets/images/lily.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Tulip', imagePath: 'assets/images/tulip.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Lily', imagePath: 'assets/images/lily.jpg', productRate: '300/Kg',),
+                  ProductBox(productName: 'Tulip', imagePath: 'assets/images/tulip.jpg', productRate: '450/Kg',),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ProductBox(productName: 'Marigold', imagePath: 'assets/images/marigold.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Daisy', imagePath: 'assets/images/daisy.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Marigold', imagePath: 'assets/images/marigold.jpg', productRate: '360/Kg',),
+                  ProductBox(productName: 'Daisy', imagePath: 'assets/images/daisy.jpg', productRate: '250/Kg',),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ProductBox(productName: 'Hibiscus', imagePath: 'assets/images/hibiscus.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Lavender', imagePath: 'assets/images/lavender.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Hibiscus', imagePath: 'assets/images/hibiscus.jpg', productRate: '350/Kg',),
+                  ProductBox(productName: 'Lavender', imagePath: 'assets/images/lavender.jpg', productRate: '160/Kg',),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ProductBox(productName: 'Iris', imagePath: 'assets/images/iris.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Jasmine', imagePath: 'assets/images/jasmine.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Iris', imagePath: 'assets/images/iris.jpg', productRate: '500/Kg',),
+                  ProductBox(productName: 'Jasmine', imagePath: 'assets/images/jasmine.jpg', productRate: '160/Kg',),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ProductBox(productName: 'Orchid', imagePath: 'assets/images/orchid.jpg', productRate: '150/Kg',),
-                  ProductBox(productName: 'Daffodil', imagePath: 'assets/images/daffodil.jpg', productRate: '150/Kg',),
+                  ProductBox(productName: 'Orchid', imagePath: 'assets/images/orchid.jpg', productRate: '900/Kg',),
+                  ProductBox(productName: 'Daffodil', imagePath: 'assets/images/daffodil.jpg', productRate: '500/Kg',),
                 ],
               ),
             ],

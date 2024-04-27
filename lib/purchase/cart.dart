@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:medigard/purchase/soils.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 import '../ui_pages/homepage.dart';
 import 'equipments.dart';
 import 'flowers.dart';
@@ -17,6 +18,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green.shade500,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -61,11 +63,60 @@ class _CartPageState extends State<CartPage> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                  color: Colors.green[300], // Add color to see the container
-                ),
+              child: Column(
+                children: [
+                  Card(
+                    elevation: 5,
+                    child: ListTile(
+                      tileColor: Colors.white,
+                      title: Text('Rose',style: TextStyle(fontSize: 20),),
+                      subtitle: Text('150/Kg'),
+                      trailing: Text('Rs.450'),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  Card(
+                    elevation: 5,
+                    child: ListTile(
+                      dense: true,
+                      tileColor: Colors.white,
+                      title: Text('Lotus',style: TextStyle(fontSize: 20),),
+                      subtitle: Text('160/Kg'),
+                      trailing: Text('Rs.320'),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  Card(
+                    elevation: 5,
+                    child: ListTile(
+                      dense: true,
+                      tileColor: Colors.white,
+                      title: Text('Tulip',style: TextStyle(fontSize: 20),),
+                      subtitle: Text('450/Kg'),
+                      trailing: Text('Rs.450'),
+                    ),
+                  ),
+                  SizedBox(height: 8,),
+                  Card(
+                    elevation: 5,
+                    child: ListTile(
+                      dense: true,
+                      tileColor: Colors.white,
+                      title: Text('Daisy',style: TextStyle(fontSize: 20),),
+                      subtitle: Text('250/Kg'),
+                      trailing: Text('Rs.500'),
+                    ),
+                  ),
+                  SizedBox(height: 180,),
+                  SlideAction(
+                    sliderButtonIcon: Icon(Icons.paypal),
+                    text: 'Slide to pay',
+                    sliderRotate: false,
+                    elevation: 5,
+                    innerColor: Colors.white,
+                    outerColor: Colors.black,
+                  ),
+                ],
               ),
             ),
           ),
