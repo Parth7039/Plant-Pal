@@ -1,3 +1,3 @@
-# medigard
+# plantpal
 
 A new Flutter project.
