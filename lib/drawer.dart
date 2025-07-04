@@ -5,6 +5,8 @@ import 'package:medigard/ui_pages/profile.dart';
 import 'package:medigard/ui_pages/settings.dart';
 import 'package:medigard/ui_pages/weather.dart';
 
+import 'chats2/main.dart';
+
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
@@ -20,7 +22,7 @@ class MyDrawer extends StatelessWidget {
           )),
           MyListTile(icon:Icons.person_add, text: 'P R O F I L E', onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()),);}),
           MyListTile(icon:Icons.settings, text: 'S E T T I N G S', onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SettingsPage()),);}),
-          MyListTile(icon:Icons.chat_outlined, text: 'C O M M U N I T Y', onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ChatUsers()),);}),
+          MyListTile(icon:Icons.chat_outlined, text: 'C O M M U N I T Y', onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()),);}),
           MyListTile(icon:Icons.cloud, text: 'W E A T H E R', onTap: (){Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WeatherPage()),);}),
         ],
       ),

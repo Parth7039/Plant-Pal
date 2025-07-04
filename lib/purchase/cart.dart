@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:medigard/purchase/soils.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import '../ui_pages/homepage.dart';
@@ -115,6 +113,9 @@ class _CartPageState extends State<CartPage> {
                     elevation: 5,
                     innerColor: Colors.white,
                     outerColor: Colors.black,
+                    submittedIcon: Icon(Icons.done_all,color: Colors.white,),
+                    animationDuration: Duration(milliseconds: 450),
+                    onSubmit: (){},
                   ),
                 ],
               ),
