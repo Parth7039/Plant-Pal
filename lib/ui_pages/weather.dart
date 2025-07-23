@@ -12,29 +12,25 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  int selected_index = 0;
-
   final _weatherService = WeatherService('cbbd33b619ae0b6517b5b2b37688ea46');
   Weather? _weather;
 
-  _fetchWeather() async {
-    String cityName = await _weatherService.getCurrentCity();
-
+  Future<void> _fetchWeather() async {
     try {
+      String cityName = await _weatherService.getCurrentCity();
       final weather = await _weatherService.getWeather(cityName);
       setState(() {
         _weather = weather;
       });
-    }
-    catch (e){
-      print(e);
+    } catch (e) {
+      print('Weather fetch error: $e');
     }
   }
 
-  String getWeatherAnimation(String? mainCondition){
-    if (mainCondition == null) return 'assets/animations/search.json';
+  String getWeatherAnimation(String? condition) {
+    if (condition == null) return 'assets/animations/search.json';
 
-    switch (mainCondition.toLowerCase()){
+    switch (condition.toLowerCase()) {
       case 'clouds':
       case 'mist':
       case 'smoke':
@@ -63,33 +59,102 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isTablet = screenWidth > 600;
+
     return Scaffold(
-      backgroundColor: Colors.grey[600],
+      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-          },
-          icon: Icon(Icons.arrow_back_ios_new_sharp),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: Colors.white12,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const HomePage()),
+                );
+              },
+            ),
+          ),
         ),
+        title: const Text(
+          "Weather",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(_weather?.cityName ?? "loading city.."),
-
-              Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
-
-              Text('${_weather?.temperature.round() ?? "loading temperature.."} Celsius'),
-
-              Text(_weather?.mainCondition ?? "")
-            ],
+      body: RefreshIndicator(
+        onRefresh: _fetchWeather,
+        color: Colors.white,
+        backgroundColor: Colors.green,
+        child: Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+            child: Column(
+              children: [
+                Text(
+                  _weather?.cityName ?? "Locating...",
+                  style: TextStyle(
+                    fontSize: isTablet ? 34 : 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Lottie.asset(
+                  getWeatherAnimation(_weather?.mainCondition),
+                  width: isTablet ? 250 : 180,
+                  fit: BoxFit.contain,
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white24, width: 1),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        _weather != null
+                            ? '${_weather!.temperature.round()}°C'
+                            : 'Loading...',
+                        style: TextStyle(
+                          fontSize: isTablet ? 48 : 36,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        _weather?.mainCondition ?? "Loading condition...",
+                        style: TextStyle(
+                          fontSize: isTablet ? 22 : 18,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                const Text(
+                  'Swipe down to refresh',
+                  style: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
